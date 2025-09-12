@@ -60,28 +60,47 @@ document.querySelectorAll('.tab-link').forEach(a=>{
 });
 
 // ===== Terms gating =====
-const TERMS_VERSION='v2';
-const modal = document.getElementById('terms-modal');
-const modalBody = document.getElementById('terms-content');
-const btnAccept = document.getElementById('btn-accept-terms');
-const chkTerms = document.getElementById('terms-checkbox');
-let PENDING_ACTION = null;
+// === Terms Gate ===
+const TERMS_KEY = 'CS_TERMS_ACCEPTED_V';
+const TERMS_VERSION = 'v2';
 
-async function showTermsIfNeeded(force=false){
-  const accepted = localStorage.getItem(LS.TERMS)===TERMS_VERSION;
-  if (accepted && !force) return true;
-  try{ modalBody.innerHTML = await fetch('terms.html').then(r=>r.text()); }catch{ modalBody.innerHTML='<p>Terms unavailable</p>'; }
-  chkTerms.checked=false; btnAccept.disabled=true;
-  modal.classList.remove('hide');
-  return false;
+function termsHide(){
+  const m = document.getElementById('terms-modal');
+  const o = document.getElementById('overlay');
+  if(!m||!o) return;
+  m.classList.add('hidden'); m.setAttribute('aria-hidden','true');
+  o.classList.add('hidden');
 }
-chkTerms?.addEventListener('change', ()=>{ btnAccept.disabled = !chkTerms.checked; });
-btnAccept?.addEventListener('click', ()=>{
-  localStorage.setItem(LS.TERMS, TERMS_VERSION);
-  localStorage.setItem(LS.TERMS_TS, Date.now());
-  modal.classList.add('hide');
-  if (typeof PENDING_ACTION === 'function'){ try{ PENDING_ACTION(); }finally{ PENDING_ACTION=null; } }
+function termsShow(){
+  const m = document.getElementById('terms-modal');
+  const o = document.getElementById('overlay');
+  if(!m||!o) return;
+  m.classList.remove('hidden'); m.setAttribute('aria-hidden','false');
+  o.classList.remove('hidden');
+}
+function initTermsGate(){
+  const accepted = localStorage.getItem(TERMS_KEY);
+  const checkedOk = (accepted === TERMS_VERSION); // يقبل 'v2'
+  // اربط الأحداث
+  const chk = document.getElementById('terms-check');
+  const btn = document.getElementById('btn-accept-terms');
+  if(chk && btn){
+    btn.disabled = !chk.checked;
+    chk.addEventListener('change', ()=>{ btn.disabled = !chk.checked; });
+    btn.addEventListener('click', ()=>{
+      localStorage.setItem(TERMS_KEY, TERMS_VERSION);
+      termsHide();
+    });
+  }
+  // قرر الإظهار/الإخفاء
+  if(checkedOk) termsHide(); else termsShow();
+}
+
+// بعد تحميل DOM مباشرة
+document.addEventListener('DOMContentLoaded', ()=>{
+  initTermsGate();
 });
+
 
 async function ensureTermsAnd(cb, force=true){
   const ok = await showTermsIfNeeded(force);
