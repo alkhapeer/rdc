@@ -1,9 +1,7 @@
 {
-  "name": "Card System",
-  "short_name": "Cards",
-  "description": "Local-only card system (Excel + LocalStorage).",
-  "start_url": ".",
-  "scope": ".",
+  "name": "RDC Cards — Public (AR/EN)",
+  "short_name": "RDC",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0b1220",
   "theme_color": "#0ea5e9",

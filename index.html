@@ -1,173 +1,177 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="app.title">نظام البطاقات</title>
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
-  <link rel="icon" href="icon-192.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <meta name="description" content="Card System — 100% local (Excel + LocalStorage)" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0ea5e9"/>
+  <title data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" href="icon-192.png"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <script>
+    if('serviceWorker' in navigator){ addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.error)); }
+  </script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap">
-      <h1 data-i18n="app.name">نظام البطاقات</h1>
-      <nav class="nav">
-        <a href="#verify" class="tab-link" data-target="tab-verify" data-i18n="nav.verify">التحقق</a>
-        <a href="#my" class="tab-link" data-target="tab-my" data-i18n="nav.my">بطاقاتي</a>
-        <a href="#issue" class="tab-link" data-target="tab-issue" data-i18n="nav.issue">إصدار بطاقة رقمية</a>
-        <a href="#renew" class="tab-link" data-target="tab-renew" data-i18n="nav.renew">تجديد</a>
-        <a href="#market" class="tab-link" data-target="tab-market" data-i18n="nav.market">السوق</a>
-        <a href="#guide" class="tab-link" data-target="tab-guide" data-i18n="nav.guide">الإرشادات</a>
-        <a href="admin.html" data-i18n="nav.admin">أدمن</a>
-      </nav>
-      <div class="lang-switch">
-        <button id="btn-install" class="secondary hide" data-i18n="common.install">تنصيب التطبيق</button>
-        <button id="lang-ar">العربية</button>
-        <button id="lang-en">English</button>
+  <header>
+    <div class="container row" style="justify-content:space-between">
+      <div class="row">
+        <h1 style="margin:0" data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</h1>
+        <button id="btn-install" class="tab-btn" data-i18n="app.install">تنصيب التطبيق</button>
       </div>
+      <div class="lang-switch">
+        <button id="btn-ar" class="tab-btn">العربية</button>
+        <button id="btn-en" class="tab-btn">English</button>
+      </div>
+    </div>
+    <div class="container">
+      <nav class="tabs" id="tabs">
+        <button class="tab-btn" data-target="tab-check" data-i18n="tabs.check">التحقق</button>
+        <button class="tab-btn" data-target="tab-my" data-i18n="tabs.my">بطاقاتي</button>
+        <button class="tab-btn" data-target="tab-issue" data-i18n="tabs.issue">إصدار بطاقة رقمية</button>
+        <button class="tab-btn active" data-target="tab-guide" data-i18n="tabs.guide">الإرشادات</button>
+        <button class="tab-btn" data-target="tab-renew" data-i18n="tabs.renew">تجديد</button>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap space">
-    <section id="tab-verify" class="tab-section active">
+  <main class="container">
+    <section id="tab-check">
       <div class="card">
-        <h2 data-i18n="verify.title">التحقق من البطاقة</h2>
+        <label data-i18n="check.label">Card ID</label>
         <div class="row">
-          <input id="v-code" placeholder="Card ID" />
-          <button id="btn-verify" class="primary" data-i18n="verify.btn">تحقق</button>
+          <input id="check-id" data-i18n-ph="check.ph" placeholder="RDCXXXX-ABC123" style="flex:1"/>
+          <button id="btn-check" class="primary" data-i18n="check.btn">تحقّق</button>
         </div>
-        <div id="verify-res" class="space-sm"></div>
+        <div id="check-result" style="margin-top:.6rem"></div>
       </div>
     </section>
 
-    <section id="tab-my" class="tab-section">
+    <section id="tab-my">
       <div class="card">
-        <h2 data-i18n="my.title">بطاقاتي</h2>
-        <div id="my-cards" class="grid-3"></div>
+        <h3 style="margin:0 0 .5rem" data-i18n="my.title">بطاقاتي</h3>
+        <div id="my-cards" class="grid"></div>
+        <small class="muted" data-i18n="my.empty">لا توجد بطاقات محفوظة بعد.</small>
       </div>
     </section>
 
-    <section id="tab-issue" class="tab-section">
+    <section id="tab-issue">
       <div class="card">
-        <h2 data-i18n="issue.title">إظهار الكارت الرقمي</h2>
-        <div class="row">
-          <input id="i-code" placeholder="Card ID" />
-          <button id="btn-show-card" class="primary" data-i18n="issue.show">عرض</button>
+        <h3 style="margin:0 0 .5rem" data-i18n="issue.title">إصدار بطاقة رقمية قابلة للتحميل</h3>
+        <label data-i18n="issue.idLabel">Card ID (يجب أن يبدأ بـ RDC)</label>
+        <input id="issue-id" placeholder="RDCXXXX-ABC123"/>
+        <label data-i18n="issue.name">الاسم على البطاقة</label>
+        <input id="issue-name" placeholder="الاسم"/>
+        <label data-i18n="issue.phone">الهاتف (اختياري)</label>
+        <input id="issue-phone" placeholder="+201234567890"/>
+        <label data-i18n="issue.photo">صورة شخصية (اختياري)</label>
+        <input id="issue-photo" type="file" accept="image/*"/>
+        <div class="row" style="margin-top:.6rem">
+          <button id="btn-generate-card" class="primary" data-i18n="issue.btn">توليد وتنزيل بطاقة رقمية</button>
         </div>
-        <div id="digital-card" class="digital-card hide"></div>
+        <div id="card-preview" class="preview" style="margin-top:.75rem"></div>
       </div>
     </section>
 
-    <section id="tab-renew" class="tab-section">
+    <section id="tab-guide" class="active">
       <div class="card">
-        <h2 data-i18n="renew.title">تجديد البطاقة</h2>
-        <p class="muted" data-i18n="renew.desc">أدخل Card ID وابدأ طلب التجديد. سيتم إرسال طلب إلى الإدارة.</p>
-        <div class="row">
-          <input id="r-code" placeholder="Card ID" />
-          <button id="btn-renew" class="primary" data-i18n="renew.start">طلب تجديد</button>
-        </div>
-        <div id="renew-msg" class="space-sm"></div>
-      </div>
-    </section>
-
-    <section id="tab-market" class="tab-section">
-      <div class="card">
-        <h2 data-i18n="market.title">السوق</h2>
-        <div class="row">
-          <input id="m-country" placeholder="Country" />
-          <input id="m-min" type="number" step="0.01" placeholder="Min $" />
-          <input id="m-max" type="number" step="0.01" placeholder="Max $" />
-          <button id="btn-filter" class="secondary" data-i18n="market.filter">تصفية</button>
-        </div>
-        <div id="market-list" class="grid-3 space-sm"></div>
+        <h3 style="margin:0 0 .5rem" data-i18n="guide.title">الإرشادات / البزنس بلان</h3>
+        <p data-i18n="guide.desc">هذا الإصدار عام — يعتمد على ملف cards-public.json الذي ترفعه مع الملفات.</p>
       </div>
 
+      <!-- Educational media -->
       <div class="card">
-        <h3 data-i18n="market.sellTitle">إدراج بطاقة للبيع</h3>
-        <p class="muted" data-i18n="market.sellNote">سيتم انتظار موافقة الإدارة قبل ظهورها.</p>
-        <div class="row">
-          <input id="s-code" placeholder="Card ID" />
-          <input id="s-country" placeholder="Country" />
-          <input id="s-price" type="number" step="0.01" placeholder="Price $" />
-          <input id="s-contact" placeholder="Contact (WhatsApp/Email)" />
-          <button id="btn-sell" class="primary" data-i18n="market.sellBtn">إرسال</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="tab-guide" class="tab-section">
-      <div class="card">
-        <h2 data-i18n="guide.title">كيف تستفيد من البطاقة؟</h2>
-        <div class="row">
-          <div style="flex:1;min-width:260px">
-            <p>الشراء: 30$ → تحصل على 3 بطاقات إضافية (Pending) بسعر 10$ للواحدة. عند بيع أي بطاقة إضافية: تدفع 10$ لتفعيلها بالاسم الجديد. بعد بيع 3 بطاقات إضافية: تحصل تلقائيًا على 3 بطاقات Pending جديدة.</p>
-            <ul>
-              <li>Cards: Active / Pending / Expired</li>
-              <li>ربح الإدارة: 10$ لكل بطاقة</li>
-              <li>ربح العميل: 20$ لكل بطاقة</li>
-            </ul>
-            <p><a href="guide.pdf" target="_blank">تحميل PDF</a></p>
-            <p><video controls width="360" src="training.mp4" style="max-width:100%"></video></p>
+        <h3 style="margin-top:0" data-i18n="guide.mediaTitle">محتوى تعليمي</h3>
+        <div class="media">
+          <div class="row">
+            <button id="btn-open-pdf" class="tab-btn" data-i18n="guide.pdfOpen">فتح PDF (لو مرفوع باسم guide.pdf)</button>
+            <label style="margin-inline-start:auto">
+              <span data-i18n="guide.pdfLocal">تحميل PDF محليًا للعرض</span>
+              <input id="pdf-file" type="file" accept="application/pdf"/>
+            </label>
           </div>
-          <div style="flex:1;min-width:260px">
-            <svg viewBox="0 0 420 260" width="100%" height="100%">
-              <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#0b1220"/></linearGradient></defs>
-              <rect x="0" y="0" width="420" height="260" fill="url(#g)" rx="14"/>
-              <g fill="#fff" font-family="Arial" font-size="12">
-                <rect x="20" y="20" width="120" height="50" rx="10" fill="#ffffff22" stroke="#fff"/><text x="80" y="50" text-anchor="middle">Purchase $30</text>
-                <rect x="160" y="20" width="120" height="50" rx="10" fill="#ffffff22" stroke="#fff"/><text x="220" y="50" text-anchor="middle">+3 Pending</text>
-                <rect x="300" y="20" width="100" height="50" rx="10" fill="#10b981" stroke="#fff"/><text x="350" y="50" text-anchor="middle">Sell</text>
-                <path d="M140,45 L160,45" stroke="#fff"/><path d="M280,45 L300,45" stroke="#fff"/>
-                <rect x="160" y="100" width="120" height="50" rx="10" fill="#fbbf24" stroke="#fff"/><text x="220" y="130" text-anchor="middle">Pay $10 → Activate</text>
-                <rect x="20" y="180" width="120" height="50" rx="10" fill="#ffffff22" stroke="#fff"/><text x="80" y="210" text-anchor="middle">3 Sales</text>
-                <rect x="160" y="180" width="120" height="50" rx="10" fill="#ffffff22" stroke="#fff"/><text x="220" y="210" text-anchor="middle">+3 New Pending</text>
-                <path d="M110,205 L160,205" stroke="#fff"/>
-              </g>
-            </svg>
+          <iframe id="pdf-frame" class="hidden" title="PDF" src="" type="application/pdf"></iframe>
+
+          <div class="row">
+            <label>
+              <span data-i18n="guide.videoLocal">تحميل فيديو محليًا للعرض</span>
+              <input id="video-file" type="file" accept="video/mp4,video/webm"/>
+            </label>
           </div>
+          <video id="video-player" class="hidden" controls playsinline></video>
         </div>
-        <div class="card space-sm">
-          <h3>FAQ</h3>
-          <details><summary>هل تعمل أوفلاين؟</summary><p>نعم، بعد أول زيارة يتم تخزين الواجهة محليًا.</p></details>
-          <details><summary>كيف أرفع بيانات جديدة؟</summary><p>من لوحة الأدمن → استيراد Excel.</p></details>
-          <details><summary>كيف أتلقى إشعارات؟</summary><p>يمكن تفعيل إشعارات المتصفح (محلية أثناء فتح الموقع). دعم الـ Push الكامل يتطلب خادم وسيتم دعمه لاحقًا.</p></details>
+      </div>
+
+      <!-- Diagram -->
+      <div class="card">
+        <h3 style="margin-top:0" data-i18n="guide.diagramTitle">رسم توضيحي للنمو الذاتي</h3>
+        <svg class="diagram" viewBox="0 0 900 380">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+          <rect x="10" y="10" width="880" height="360" rx="16" fill="#0b1220" stroke="#1f2937"/>
+          <g>
+            <rect x="40" y="60" width="160" height="80" rx="12" fill="url(#g)" stroke="#1f2937"/>
+            <text id="dg-buy" x="120" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">30$ شراء بطاقة</text>
+
+            <path d="M200 100 L300 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="300" y="60" width="200" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
+            <text id="dg-temp" x="400" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">+3 بطاقات مؤقتة</text>
+
+            <path d="M500 100 L600 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="600" y="60" width="240" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
+            <text id="dg-sell" x="720" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">بيع بطاقة = 30$ للمُباع</text>
+
+            <path d="M720 140 L720 240" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="580" y="240" width="280" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
+            <text id="dg-activate" x="720" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">10$ للإدارة → تفعيل</text>
+
+            <path d="M580 280 L160 280" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="40" y="240" width="320" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
+            <text id="dg-loop" x="200" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">من يبيع 3 بطاقات يحصل على 3 أخرى</text>
+          </g>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    <section id="tab-renew">
+      <div class="card">
+        <h3 style="margin:0 0 .5rem" data-i18n="renew.title">تجديد البطاقة / التواصل مع الإدارة</h3>
+        <label data-i18n="renew.label">Card ID</label>
+        <div class="row">
+          <input id="renew-id" placeholder="RDCXXXX-ABC123" style="flex:1"/>
+          <button id="btn-renew" class="primary" data-i18n="renew.btn">فتح واتساب</button>
         </div>
+        <small class="muted" data-i18n="renew.note">سيتم تجهيز رسالة جاهزة تحتوي CardID.</small>
       </div>
     </section>
   </main>
 
-  <footer class="footer"><div class="wrap"><small>© 2025</small></div></footer>
-
   <!-- Terms Modal -->
-<!-- Terms Modal -->
-<div id="overlay" class="overlay hidden" aria-hidden="true"></div>
-<div id="terms-modal" class="modal hidden" aria-hidden="true">
-  <div class="modal-card">
-    <h3>الشروط والسياسات</h3>
-    <p>… نص مختصر عن السياسات …</p>
-    <label class="row" style="margin:.75rem 0">
-      <input type="checkbox" id="terms-check">
-      <span style="margin-inline-start:.5rem">أوافق على الشروط والسياسات</span>
-    </label>
-    <button id="btn-accept-terms" class="primary" disabled>أوافق على الشروط والسياسات</button>
-   </div>
+  <div id="overlay" class="overlay hidden" aria-hidden="true"></div>
+  <div id="terms-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <h3 style="margin:0 0 .5rem" data-i18n="terms.title">الشروط والسياسات</h3>
+      <div style="max-height:42vh;overflow:auto">
+        <p data-i18n="terms.brief"><b>مختصر:</b> البطاقات شخصية وتُفعل بعد الدفع. يمنع العبث بالأكواد.</p>
+      </div>
+      <label class="row" style="margin:.75rem 0">
+        <input type="checkbox" id="terms-check"><span style="margin-inline-start:.5rem" data-i18n="terms.agree">أوافق على الشروط والسياسات</span>
+      </label>
+      <button id="btn-accept-terms" class="primary" disabled data-i18n="terms.btn">أوافق على الشروط والسياسات</button>
+    </div>
   </div>
 
+  <footer class="container" style="padding-bottom:40px"><small class="muted">© 2025 — إصدار عام (PWA)</small></footer>
 
-  </div>
-
-  <script src="shared-utils.js"></script>
-  <script src="app.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(console.error);
-      });
-    }
-  </script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

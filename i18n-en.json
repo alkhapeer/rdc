@@ -1,64 +1,65 @@
 {
   "app": {
-    "title": "Card System",
-    "name": "Card System"
+    "title": "RDC Cards — Public",
+    "install": "Install app"
   },
-  "nav": {
-    "verify": "Verify",
+  "tabs": {
+    "check": "Check",
     "my": "My Cards",
-    "issue": "Digital Card",
-    "renew": "Renew",
-    "market": "Marketplace",
+    "issue": "Issue Digital Card",
     "guide": "Guide",
-    "admin": "Admin"
+    "renew": "Renew"
   },
-  "verify": {
-    "title": "Verify Card",
-    "btn": "Verify",
-    "notFound": "Card not found",
+  "check": {
+    "label": "Card ID",
+    "ph": "RDCXXXX-ABC123",
+    "btn": "Check",
+    "notFound": "Not found",
+    "enterId": "Enter Card ID",
     "active": "Active",
-    "pending": "Pending",
-    "expired": "Expired",
-    "contact": "Contact Admin"
+    "temp": "Temporary",
+    "expired": "Expired"
   },
   "my": {
     "title": "My Cards",
-    "copy": "Copy ID",
-    "sell": "List for Sale"
+    "empty": "No cards saved yet."
   },
   "issue": {
-    "title": "Show Digital Card",
-    "show": "Show"
-  },
-  "renew": {
-    "title": "Renew Card",
-    "desc": "Enter Card ID to start a renewal request. A message will be sent to the admin.",
-    "start": "Request Renewal",
-    "queued": "Request saved locally and will be sent upon contact."
-  },
-  "market": {
-    "title": "Marketplace",
-    "filter": "Filter",
-    "sellTitle": "List a Card",
-    "sellNote": "Pending admin approval.",
-    "sellBtn": "Submit",
-    "waiting": "Pending admin approval"
+    "title": "Issue downloadable card (PNG)",
+    "idLabel": "Card ID (must start with RDC)",
+    "name": "Name on card",
+    "phone": "Phone (optional)",
+    "photo": "Portrait (optional)",
+    "btn": "Generate & Download",
+    "errPrefix": "CardID must start with RDC",
+    "errMissing": "Not found in public snapshot.",
+    "errInactive": "This card is not officially active.",
+    "download": "Download card (PNG)"
   },
   "guide": {
-    "title": "Guide & Plan"
+    "title": "Guide / Business Plan",
+    "desc": "This is a public build — it reads cards-public.json you upload with the files.",
+    "faqTitle": "FAQ",
+    "faq1": "How to update public data?",
+    "faq1a": "Use the offline admin tool to export cards-public.json and upload it here.",
+    "faq2": "Does it work offline?",
+    "faq2a": "Yes after first visit (PWA). cards-public.json is fetched network-first then cache.",
+    "mediaTitle": "Educational Media",
+    "pdfOpen": "Open PDF (if uploaded as guide.pdf)",
+    "pdfLocal": "Load local PDF for preview",
+    "videoLocal": "Load local Video for preview",
+    "diagramTitle": "Self-growth diagram"
+  },
+  "renew": {
+    "title": "Renew / Contact Admin",
+    "label": "Card ID",
+    "btn": "Open WhatsApp",
+    "note": "A pre-filled message will include the CardID."
   },
   "terms": {
-    "accept": "Accept terms",
-    "must": "Please accept terms first."
-  },
-  "common": {
-    "install": "Install App",
-    "ok": "OK",
-    "error": "Error",
-    "noCards": "No cards",
-    "noItems": "No items",
-    "country": "Country",
-    "price": "Price",
-    "contact": "Contact"
+    "title": "Terms & Policies",
+    "brief": "Summary: Cards are personal and activated after payment. No tampering.",
+    "agree": "I agree to Terms & Policies",
+    "btn": "I agree"
   }
 }
