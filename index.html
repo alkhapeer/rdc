@@ -15,14 +15,17 @@
 </head>
 <body>
   <header>
-    <div class="container row" style="justify-content:space-between">
-      <div class="row">
-        <h1 style="margin:0" data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</h1>
-        <button id="btn-install" class="tab-btn" data-i18n="app.install">تنصيب التطبيق</button>
+    <div class="container hero">
+      <div class="brand">
+        <span class="badge">PWA</span>
+        <h1 data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</h1>
       </div>
-      <div class="lang-switch">
-        <button id="btn-ar" class="tab-btn">العربية</button>
-        <button id="btn-en" class="tab-btn">English</button>
+      <div class="row">
+        <button id="btn-install" class="btn pill hidden" data-i18n="app.install">تنصيب التطبيق</button>
+        <div class="lang-switch">
+          <button id="btn-ar" class="btn pill">العربية</button>
+          <button id="btn-en" class="btn pill">English</button>
+        </div>
       </div>
     </div>
     <div class="container">
@@ -42,7 +45,7 @@
         <label data-i18n="check.label">Card ID</label>
         <div class="row">
           <input id="check-id" data-i18n-ph="check.ph" placeholder="RDCXXXX-ABC123" style="flex:1"/>
-          <button id="btn-check" class="primary" data-i18n="check.btn">تحقّق</button>
+          <button id="btn-check" class="btn primary" data-i18n="check.btn">تحقّق</button>
         </div>
         <div id="check-result" style="margin-top:.6rem"></div>
       </div>
@@ -68,9 +71,9 @@
         <label data-i18n="issue.photo">صورة شخصية (اختياري)</label>
         <input id="issue-photo" type="file" accept="image/*"/>
         <div class="row" style="margin-top:.6rem">
-          <button id="btn-generate-card" class="primary" data-i18n="issue.btn">توليد وتنزيل بطاقة رقمية</button>
+          <button id="btn-generate-card" class="btn primary" data-i18n="issue.btn">توليد وتنزيل</button>
         </div>
-        <div id="card-preview" class="preview" style="margin-top:.75rem"></div>
+        <div id="card-preview" class="row" style="margin-top:.75rem"></div>
       </div>
     </section>
 
@@ -80,77 +83,54 @@
         <p data-i18n="guide.desc">هذا الإصدار عام — يعتمد على ملف cards-public.json الذي ترفعه مع الملفات.</p>
       </div>
 
-      <!-- Educational media -->
       <div class="card">
-        <h3 style="margin-top:0" data-i18n="guide.mediaTitle">محتوى تعليمي</h3>
-        <div class="media">
-          <div class="row">
-            <button id="btn-open-pdf" class="tab-btn" data-i18n="guide.pdfOpen">فتح PDF (لو مرفوع باسم guide.pdf)</button>
-            <label style="margin-inline-start:auto">
-              <span data-i18n="guide.pdfLocal">تحميل PDF محليًا للعرض</span>
-              <input id="pdf-file" type="file" accept="application/pdf"/>
-            </label>
-          </div>
-          <iframe id="pdf-frame" class="hidden" title="PDF" src="" type="application/pdf"></iframe>
-
-          <div class="row">
-            <label>
-              <span data-i18n="guide.videoLocal">تحميل فيديو محليًا للعرض</span>
-              <input id="video-file" type="file" accept="video/mp4,video/webm"/>
-            </label>
-          </div>
-          <video id="video-player" class="hidden" controls playsinline></video>
+        <h3 style="margin:0 0 .5rem" data-i18n="guide.mediaTitle">محتوى تعليمي</h3>
+        <div class="row">
+          <button id="btn-open-pdf" class="btn pill hidden" data-i18n="guide.openPdf">فتح الدليل (guide.pdf)</button>
+          <small id="guide-missing" class="muted hidden" data-i18n="guide.missing">ارفع الملفات بجوار index.html</small>
         </div>
+        <video id="video-player" class="hidden" controls playsinline style="margin-top:.5rem;border-radius:12px;max-width:100%"></video>
       </div>
 
-      <!-- Diagram -->
       <div class="card">
-        <h3 style="margin-top:0" data-i18n="guide.diagramTitle">رسم توضيحي للنمو الذاتي</h3>
-        <svg class="diagram" viewBox="0 0 900 380">
+        <h3 style="margin:0 0 .5rem">رسم توضيحي للنمو الذاتي</h3>
+        <svg viewBox="0 0 900 380" style="width:100%;height:auto;background:#0b1220;border:1px solid #1f2937;border-radius:12px">
           <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/>
-            </linearGradient>
-          </defs>
-          <rect x="10" y="10" width="880" height="360" rx="16" fill="#0b1220" stroke="#1f2937"/>
-          <g>
-            <rect x="40" y="60" width="160" height="80" rx="12" fill="url(#g)" stroke="#1f2937"/>
-            <text id="dg-buy" x="120" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">30$ شراء بطاقة</text>
-
-            <path d="M200 100 L300 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
-            <rect x="300" y="60" width="200" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
-            <text id="dg-temp" x="400" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">+3 بطاقات مؤقتة</text>
-
-            <path d="M500 100 L600 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
-            <rect x="600" y="60" width="240" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
-            <text id="dg-sell" x="720" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">بيع بطاقة = 30$ للمُباع</text>
-
-            <path d="M720 140 L720 240" stroke="#94a3b8" marker-end="url(#arrow)"/>
-            <rect x="580" y="240" width="280" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
-            <text id="dg-activate" x="720" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">10$ للإدارة → تفعيل</text>
-
-            <path d="M580 280 L160 280" stroke="#94a3b8" marker-end="url(#arrow)"/>
-            <rect x="40" y="240" width="320" height="80" rx="12" fill="#0f172a" stroke="#1f2937"/>
-            <text id="dg-loop" x="200" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">من يبيع 3 بطاقات يحصل على 3 أخرى</text>
-          </g>
-          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0ea5e9"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
             <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"></path>
             </marker>
           </defs>
+          <rect x="10" y="10" width="880" height="360" rx="16" fill="#0b1220" stroke="#1f2937"></rect>
+          <g>
+            <rect x="40" y="60" width="160" height="80" rx="12" fill="url(#g)" stroke="#1f2937"></rect>
+            <text x="120" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">30$ شراء بطاقة</text>
+            <path d="M200 100 L300 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="300" y="60" width="200" height="80" rx="12" fill="#0f172a" stroke="#1f2937"></rect>
+            <text x="400" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">+3 بطاقات مؤقتة</text>
+            <path d="M500 100 L600 100" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="600" y="60" width="240" height="80" rx="12" fill="#0f172a" stroke="#1f2937"></rect>
+            <text x="720" y="110" text-anchor="middle" fill="#e5e7eb" font-size="16">بيع بطاقة = 30$ للمُباع</text>
+            <path d="M720 140 L720 240" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="580" y="240" width="280" height="80" rx="12" fill="#0f172a" stroke="#1f2937"></rect>
+            <text x="720" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">10$ للإدارة → تفعيل</text>
+            <path d="M580 280 L160 280" stroke="#94a3b8" marker-end="url(#arrow)"/>
+            <rect x="40" y="240" width="320" height="80" rx="12" fill="#0f172a" stroke="#1f2937"></rect>
+            <text x="200" y="290" text-anchor="middle" fill="#e5e7eb" font-size="16">من يبيع 3 بطاقات يحصل على 3 أخرى</text>
+          </g>
         </svg>
       </div>
     </section>
 
     <section id="tab-renew">
       <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="renew.title">تجديد البطاقة / التواصل مع الإدارة</h3>
+        <h3 style="margin:0 0 .5rem" data-i18n="renew.title">تجديد / التواصل مع الإدارة</h3>
         <label data-i18n="renew.label">Card ID</label>
         <div class="row">
           <input id="renew-id" placeholder="RDCXXXX-ABC123" style="flex:1"/>
-          <button id="btn-renew" class="primary" data-i18n="renew.btn">فتح واتساب</button>
+          <button id="btn-renew" class="btn primary" data-i18n="renew.btn">فتح واتساب</button>
         </div>
-        <small class="muted" data-i18n="renew.note">سيتم تجهيز رسالة جاهزة تحتوي CardID.</small>
+        <small class="muted" data-i18n="renew.note">سيتم تجهيز رسالة جاهزة.</small>
       </div>
     </section>
   </main>
@@ -161,17 +141,16 @@
     <div class="modal-card">
       <h3 style="margin:0 0 .5rem" data-i18n="terms.title">الشروط والسياسات</h3>
       <div style="max-height:42vh;overflow:auto">
-        <p data-i18n="terms.brief"><b>مختصر:</b> البطاقات شخصية وتُفعل بعد الدفع. يمنع العبث بالأكواد.</p>
+        <p data-i18n="terms.brief">مختصر: البطاقات شخصية وتُفعّل بعد الدفع. يمنع العبث.</p>
       </div>
       <label class="row" style="margin:.75rem 0">
-        <input type="checkbox" id="terms-check"><span style="margin-inline-start:.5rem" data-i18n="terms.agree">أوافق على الشروط والسياسات</span>
+        <input type="checkbox" id="terms-check"><span style="margin-inline-start:.5rem" data-i18n="terms.agree">أوافق</span>
       </label>
-      <button id="btn-accept-terms" class="primary" disabled data-i18n="terms.btn">أوافق على الشروط والسياسات</button>
+      <button id="btn-accept-terms" class="btn primary" disabled data-i18n="terms.btn">موافق</button>
     </div>
   </div>
 
-  <footer class="container" style="padding-bottom:40px"><small class="muted">© 2025 — إصدار عام (PWA)</small></footer>
-
+  <footer class="container"><small class="muted">© 2025 — Public PWA</small></footer>
   <script type="module" src="app.js"></script>
 </body>
 </html>

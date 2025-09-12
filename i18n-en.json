@@ -15,10 +15,10 @@
     "ph": "RDCXXXX-ABC123",
     "btn": "Check",
     "notFound": "Not found",
-    "enterId": "Enter Card ID",
     "active": "Active",
     "temp": "Temporary",
-    "expired": "Expired"
+    "expired": "Expired",
+    "save": "Save to My Cards"
   },
   "my": {
     "title": "My Cards",
@@ -34,32 +34,31 @@
     "errPrefix": "CardID must start with RDC",
     "errMissing": "Not found in public snapshot.",
     "errInactive": "This card is not officially active.",
-    "download": "Download card (PNG)"
+    "download": "Download (PNG)"
   },
   "guide": {
     "title": "Guide / Business Plan",
-    "desc": "This is a public build — it reads cards-public.json you upload with the files.",
+    "desc": "This public build reads the cards-public.json you upload.",
     "faqTitle": "FAQ",
     "faq1": "How to update public data?",
-    "faq1a": "Use the offline admin tool to export cards-public.json and upload it here.",
-    "faq2": "Does it work offline?",
-    "faq2a": "Yes after first visit (PWA). cards-public.json is fetched network-first then cache.",
+    "faq1a": "Use the offline Admin Tool to export cards-public.json and upload it here.",
+    "faq2": "Works offline?",
+    "faq2a": "Yes after first visit (PWA).",
     "mediaTitle": "Educational Media",
-    "pdfOpen": "Open PDF (if uploaded as guide.pdf)",
-    "pdfLocal": "Load local PDF for preview",
-    "videoLocal": "Load local Video for preview",
-    "diagramTitle": "Self-growth diagram"
+    "openPdf": "Open guide (guide.pdf)",
+    "playVideo": "Play video (training.mp4)",
+    "missing": "Upload files next to index.html"
   },
   "renew": {
     "title": "Renew / Contact Admin",
     "label": "Card ID",
     "btn": "Open WhatsApp",
-    "note": "A pre-filled message will include the CardID."
+    "note": "A pre-filled message will be used."
   },
   "terms": {
     "title": "Terms & Policies",
-    "brief": "Summary: Cards are personal and activated after payment. No tampering.",
-    "agree": "I agree to Terms & Policies",
-    "btn": "I agree"
+    "brief": "Summary: Cards are personal and activated after payment.",
+    "agree": "I agree",
+    "btn": "OK"
   }
 }
