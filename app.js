@@ -61,40 +61,36 @@ document.querySelectorAll('.tab-link').forEach(a=>{
 
 // ===== Terms gating =====
 // === Terms Gate ===
-const TERMS_KEY = 'CS_TERMS_ACCEPTED_V';
-const TERMS_VERSION = 'v2';
+// === Terms Gate ===
+const TERMS_KEY='CS_TERMS_ACCEPTED_V';
+const TERMS_VERSION='v2';
 
 function termsHide(){
-  const m = document.getElementById('terms-modal');
-  const o = document.getElementById('overlay');
-  if(!m||!o) return;
-  m.classList.add('hidden'); m.setAttribute('aria-hidden','true');
-  o.classList.add('hidden');
+  const m=document.getElementById('terms-modal');
+  const o=document.getElementById('overlay');
+  if(m&&o){ m.classList.add('hidden'); m.setAttribute('aria-hidden','true'); o.classList.add('hidden'); }
 }
 function termsShow(){
-  const m = document.getElementById('terms-modal');
-  const o = document.getElementById('overlay');
-  if(!m||!o) return;
-  m.classList.remove('hidden'); m.setAttribute('aria-hidden','false');
-  o.classList.remove('hidden');
+  const m=document.getElementById('terms-modal');
+  const o=document.getElementById('overlay');
+  if(m&&o){ m.classList.remove('hidden'); m.setAttribute('aria-hidden','false'); o.classList.remove('hidden'); }
 }
 function initTermsGate(){
-  const accepted = localStorage.getItem(TERMS_KEY);
-  const checkedOk = (accepted === TERMS_VERSION); // يقبل 'v2'
-  // اربط الأحداث
-  const chk = document.getElementById('terms-check');
-  const btn = document.getElementById('btn-accept-terms');
-  if(chk && btn){
-    btn.disabled = !chk.checked;
-    chk.addEventListener('change', ()=>{ btn.disabled = !chk.checked; });
-    btn.addEventListener('click', ()=>{
-      localStorage.setItem(TERMS_KEY, TERMS_VERSION);
+  const accepted=localStorage.getItem(TERMS_KEY)===TERMS_VERSION;
+  const chk=document.getElementById('terms-check');
+  const btn=document.getElementById('btn-accept-terms');
+  if(chk&&btn){
+    btn.disabled=!chk.checked;
+    chk.addEventListener('change',()=>{ btn.disabled=!chk.checked; });
+    btn.addEventListener('click',()=>{
+      localStorage.setItem(TERMS_KEY,TERMS_VERSION);
       termsHide();
     });
   }
-  // قرر الإظهار/الإخفاء
-  if(checkedOk) termsHide(); else termsShow();
+  accepted?termsHide():termsShow();
 }
+document.addEventListener('DOMContentLoaded',initTermsGate);
+
 
 // بعد تحميل DOM مباشرة
 document.addEventListener('DOMContentLoaded', ()=>{
