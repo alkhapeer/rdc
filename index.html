@@ -142,14 +142,20 @@
 
   <footer class="footer"><div class="wrap"><small>© 2025</small></div></footer>
 
-  <div id="terms-modal" class="modal hide">
-    <div class="modal-box">
-      <div class="modal-body" id="terms-content"></div>
-      <div class="modal-actions">
-        <label><input type="checkbox" id="terms-checkbox" /> <span data-i18n="terms.accept">أوافق على الشروط والسياسات</span></label>
-        <button id="btn-accept-terms" class="primary" disabled data-i18n="terms.accept">أوافق</button>
-      </div>
-    </div>
+  <!-- Terms Modal -->
+<div id="overlay" class="overlay hidden"></div>
+<div id="terms-modal" class="modal hidden" aria-hidden="true">
+  <div class="modal-card">
+    <h3>الشروط والسياسات</h3>
+    <p>… نص مختصر عن السياسات …</p>
+    <label class="row" style="margin:.75rem 0">
+      <input type="checkbox" id="terms-check">
+      <span style="margin-inline-start:.5rem">أوافق على الشروط والسياسات</span>
+    </label>
+    <button id="btn-accept-terms" class="primary" disabled>أوافق على الشروط والسياسات</button>
+   </div>
+  </div>
+
   </div>
 
   <script src="shared-utils.js"></script>
