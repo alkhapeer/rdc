@@ -1,0 +1,64 @@
+{
+  "app": {
+    "title": "Card System",
+    "name": "Card System"
+  },
+  "nav": {
+    "verify": "Verify",
+    "my": "My Cards",
+    "issue": "Digital Card",
+    "renew": "Renew",
+    "market": "Marketplace",
+    "guide": "Guide",
+    "admin": "Admin"
+  },
+  "verify": {
+    "title": "Verify Card",
+    "btn": "Verify",
+    "notFound": "Card not found",
+    "active": "Active",
+    "pending": "Pending",
+    "expired": "Expired",
+    "contact": "Contact Admin"
+  },
+  "my": {
+    "title": "My Cards",
+    "copy": "Copy ID",
+    "sell": "List for Sale"
+  },
+  "issue": {
+    "title": "Show Digital Card",
+    "show": "Show"
+  },
+  "renew": {
+    "title": "Renew Card",
+    "desc": "Enter Card ID to start a renewal request. A message will be sent to the admin.",
+    "start": "Request Renewal",
+    "queued": "Request saved locally and will be sent upon contact."
+  },
+  "market": {
+    "title": "Marketplace",
+    "filter": "Filter",
+    "sellTitle": "List a Card",
+    "sellNote": "Pending admin approval.",
+    "sellBtn": "Submit",
+    "waiting": "Pending admin approval"
+  },
+  "guide": {
+    "title": "Guide & Plan"
+  },
+  "terms": {
+    "accept": "Accept terms",
+    "must": "Please accept terms first."
+  },
+  "common": {
+    "install": "Install App",
+    "ok": "OK",
+    "error": "Error",
+    "noCards": "No cards",
+    "noItems": "No items",
+    "country": "Country",
+    "price": "Price",
+    "contact": "Contact"
+  }
+}
