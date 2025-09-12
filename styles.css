@@ -24,15 +24,20 @@ button.secondary{background:#64748b}button:disabled{opacity:.5;cursor:not-allowe
 .digital-card .holder{position:absolute;bottom:18px;right:18px;text-align:right}
 .digital-card .badge{position:absolute;top:14px;right:14px;background:#10b981;color:#06251c;font-weight:800;padding:6px 10px;border-radius:9999px}
 .digital-card.pending .badge{background:#f59e0b;color:#3b2507}.digital-card.expired .badge{background:#ef4444;color:#fff}
-.hidden{display:none !important;}
+.hidden{display:none!important;}
 .overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:9998;
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  z-index:2147483646;  /* تحت المودال */
 }
 .modal{
-  position:fixed; inset:0; display:grid; place-items:center; z-index:9999;
+  position:fixed; inset:0; display:grid; place-items:center;
+  z-index:2147483647;  /* أعلى كل شيء */
+  pointer-events:none; /* منع التقاط النقرات من الحاوية */
 }
 .modal-card{
+  pointer-events:auto; /* السماح بالنقر داخل البطاقة */
   background:#fff; border-radius:16px; padding:16px 18px; max-width:520px; width:90%;
   box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
+
 
