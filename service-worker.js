@@ -1,5 +1,5 @@
 // App Shell PWA Service Worker (cardsys v1.2.0)
-const CACHE_NAME = 'cardsys-v1.2.0';
+const CACHE_NAME = 'cardsys-v1.2.2';
 const CORE_ASSETS = [
   './',
   './index.html',
