@@ -8,7 +8,9 @@
     "my": "My Cards",
     "issue": "Issue Digital Card",
     "guide": "Guide",
-    "renew": "Renew"
+    "shops": "Partners",
+    "renew": "Renew",
+    "contact": "Contact"
   },
   "check": {
     "label": "Card ID",
@@ -60,5 +62,12 @@
     "brief": "Summary: Cards are personal and activated after payment.",
     "agree": "I agree",
     "btn": "OK"
+  },
+  "shops": {
+    "title": "Participating Stores",
+    "desc": "Will show once you upload partners.json. (Pending)",
+    "empty": "No stores yet.",
+    "discount": "OFF",
+    "soon": "Will activate once the file is uploaded."
   }
 }

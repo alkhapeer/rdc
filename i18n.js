@@ -3,7 +3,7 @@ const LANG_KEY='RDC_LANG';
 let I18N=null, LANG='ar';
 export async function setLang(l){
   LANG=(l==='en'?'en':'ar'); localStorage.setItem(LANG_KEY,LANG);
-  I18N=await fetch(`./i18n-${LANG}.json?ver=3.0.0`).then(r=>r.json()).catch(()=>null);
+  I18N=await fetch(`./i18n-${LANG}.json?ver=3.3.0`).then(r=>r.json()).catch(()=>null);
   applyI18n();
   document.documentElement.lang=(LANG==='en'?'en':'ar');
   document.documentElement.dir=(LANG==='en'?'ltr':'rtl');
