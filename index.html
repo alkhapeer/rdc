@@ -4,145 +4,79 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="theme-color" content="#0ea5e9"/>
-  <title data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</title>
+  <title>نظام البطاقات (RDC)</title>
   <link rel="manifest" href="manifest.json"/>
   <link rel="icon" href="icon-192.png"/>
   <link rel="stylesheet" href="styles.css"/>
   <script>
-    if('serviceWorker' in navigator){ 
-      addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.error)); 
-    }
+    if('serviceWorker' in navigator){ addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.error)); }
   </script>
 </head>
 <body>
   <header>
-    <div class="container hero">
-      <div class="brand">
-        <span class="badge">PWA</span>
-        <h1 data-i18n="app.title">نظام البطاقات (RDC) — إصدار عام</h1>
-      </div>
+    <div class="container row" style="justify-content:space-between">
       <div class="row">
-        <button id="btn-install" class="btn pill hidden" data-i18n="app.install">تنصيب التطبيق</button>
-        <div class="lang-switch">
-          <button id="btn-ar" class="btn pill">العربية</button>
-          <button id="btn-en" class="btn pill">English</button>
-        </div>
+        <h1 id="title" style="margin:0" title="Double‑click to enter Admin">نظام البطاقات (RDC)</h1>
+        <button id="btn-install" class="tab-btn">تنصيب التطبيق</button>
       </div>
+      <small class="muted">للدخول للأدمن: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd></small>
     </div>
     <div class="container">
       <nav class="tabs" id="tabs">
-        <button class="tab-btn" data-target="tab-check" data-i18n="tabs.check">التحقق</button>
-        <button class="tab-btn" data-target="tab-my" data-i18n="tabs.my">بطاقاتي</button>
-        <button class="tab-btn" data-target="tab-issue" data-i18n="tabs.issue">إصدار بطاقة رقمية</button>
-        <button class="tab-btn active" data-target="tab-guide" data-i18n="tabs.guide">الإرشادات</button>
-        <button class="tab-btn" data-target="tab-renew" data-i18n="tabs.renew">تجديد</button>
-        <button class="tab-btn" data-target="tab-contact">تواصل معنا</button>
+        <button class="tab-btn" data-target="tab-check">التحقق</button>
+        <button class="tab-btn" data-target="tab-my">بطاقاتي</button>
+        <button class="tab-btn" data-target="tab-issue">إصدار بطاقة رقمية</button>
+        <button class="tab-btn" data-target="tab-renew">تجديد</button>
+        <button class="tab-btn active" data-target="tab-guide">الإرشادات</button>
       </nav>
     </div>
   </header>
 
   <main class="container">
+    <section id="tab-check"><div class="card"><label>Card ID</label><div class="row"><input id="check-id" placeholder="RDCXXXX-ABC123" style="flex:1"/><button id="btn-check" class="primary">تحقّق</button></div><div id="check-result" style="margin-top:.6rem"></div></div></section>
+    <section id="tab-my"><div class="card"><h3 style="margin:0 0 .5rem">بطاقاتي</h3><div id="my-cards" class="grid"></div><small class="muted">تظهر البطاقات بعد استيراد/توليد البيانات محليًا (لا يوجد خادم).</small></div></section>
+    <section id="tab-issue"><div class="card"><h3 style="margin:0 0 .5rem">إصدار بطاقة رقمية قابلة للتحميل</h3><label>Card ID (يجب أن يبدأ بـ RDC)</label><input id="issue-id" placeholder="RDCXXXX-ABC123"/><label>الاسم على البطاقة</label><input id="issue-name" placeholder="الاسم"/><label>الهاتف (اختياري)</label><input id="issue-phone" placeholder="+201234567890"/><label>صورة شخصية (اختياري)</label><input id="issue-photo" type="file" accept="image/*"/><div class="row" style="margin-top:.6rem"><button id="btn-generate-card" class="primary">توليد وتنزيل بطاقة رقمية</button></div><div id="card-preview" class="preview" style="margin-top:.75rem"></div></div></section>
+    <section id="tab-renew"><div class="card"><h3 style="margin:0 0 .5rem">تجديد البطاقة / التواصل مع الإدارة</h3><label>Card ID</label><div class="row"><input id="renew-id" placeholder="RDCXXXX-ABC123" style="flex:1"/><button id="btn-renew" class="primary">فتح واتساب</button></div><small class="muted">سيتم تجهيز رسالة جاهزة تحتوي CardID.</small></div></section>
 
-    <!-- تحقق -->
-    <section id="tab-check">
-      <div class="card">
-        <label data-i18n="check.label">Card ID</label>
-        <div class="row">
-          <input id="check-id" data-i18n-ph="check.ph" placeholder="RDCXXXX-ABC123" style="flex:1"/>
-          <button id="btn-check" class="btn primary" data-i18n="check.btn">تحقّق</button>
-        </div>
-        <div id="check-result" style="margin-top:.6rem"></div>
-      </div>
-    </section>
-
-    <!-- بطاقاتي -->
-    <section id="tab-my">
-      <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="my.title">بطاقاتي</h3>
-        <div id="my-cards" class="grid"></div>
-        <small class="muted" data-i18n="my.empty">لا توجد بطاقات محفوظة بعد.</small>
-      </div>
-    </section>
-
-    <!-- إصدار بطاقة -->
-    <section id="tab-issue">
-      <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="issue.title">إصدار بطاقة رقمية قابلة للتحميل</h3>
-        <label data-i18n="issue.idLabel">Card ID (يجب أن يبدأ بـ RDC)</label>
-        <input id="issue-id" placeholder="RDCXXXX-ABC123"/>
-        <label data-i18n="issue.name">الاسم على البطاقة</label>
-        <input id="issue-name" placeholder="الاسم"/>
-        <label data-i18n="issue.phone">الهاتف (اختياري)</label>
-        <input id="issue-phone" placeholder="+201234567890"/>
-        <label data-i18n="issue.photo">صورة شخصية (اختياري)</label>
-        <input id="issue-photo" type="file" accept="image/*"/>
-        <div class="row" style="margin-top:.6rem">
-          <button id="btn-generate-card" class="btn primary" data-i18n="issue.btn">توليد وتنزيل</button>
-        </div>
-        <div id="card-preview" class="row" style="margin-top:.75rem"></div>
-      </div>
-    </section>
-
-    <!-- الإرشادات -->
     <section id="tab-guide" class="active">
-      <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="guide.title">الإرشادات / البزنس بلان</h3>
-        <p data-i18n="guide.desc">هذا الإصدار عام — يعتمد على ملف cards-public.json الذي ترفعه مع الملفات.</p>
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="guide.mediaTitle">محتوى تعليمي</h3>
-        <div class="row">
-          <button id="btn-open-pdf" class="btn pill hidden" data-i18n="guide.openPdf">فتح الدليل (guide.pdf)</button>
-          <small id="guide-missing" class="muted hidden" data-i18n="guide.missing">ارفع الملفات بجوار index.html</small>
+      <div class="card"><h3 style="margin-top:0">الإرشادات / البزنس بلان</h3><p>شرح نموذج النمو الذاتي وكيفية إصدار/بيع/تجديد البطاقات.</p></div>
+      <!-- Admin-only Excel block (hidden until admin key) -->
+      <div id="admin-excel-card" class="card hidden">
+        <h3 style="margin-top:0">إدارة البيانات (Excel) — أدمن</h3>
+        <label>استيراد ملف Excel (ورقة: cards)</label>
+        <input id="file-excel" type="file" accept=".xlsx,.xls"/>
+        <div class="row" style="margin-top:.5rem">
+          <button id="btn-import-excel" class="primary">استيراد إلى الكاش</button>
+          <button id="btn-export-excel" class="tab-btn">تصدير من الكاش إلى Excel</button>
         </div>
-        <video id="video-player" class="hidden" controls playsinline style="margin-top:.5rem;border-radius:12px;max-width:100%"></video>
+        <small class="muted">محلي بالكامل — لا يتم إرسال أي بيانات لخادم.</small>
+        <div id="excel-status" style="margin-top:.5rem"></div>
       </div>
     </section>
-
-    <!-- تجديد -->
-    <section id="tab-renew">
-      <div class="card">
-        <h3 style="margin:0 0 .5rem" data-i18n="renew.title">تجديد / التواصل مع الإدارة</h3>
-        <label data-i18n="renew.label">Card ID</label>
-        <div class="row">
-          <input id="renew-id" placeholder="RDCXXXX-ABC123" style="flex:1"/>
-          <button id="btn-renew" class="btn primary" data-i18n="renew.btn">فتح واتساب</button>
-        </div>
-        <small class="muted" data-i18n="renew.note">سيتم تجهيز رسالة جاهزة.</small>
-      </div>
-    </section>
-
-    <!-- تواصل معنا -->
-    <section id="tab-contact">
-      <div class="card">
-        <h3>تواصل معنا / Contact Us</h3>
-        <p>اضغط الزر لفتح نموذج التواصل في نافذة جديدة (Google Forms).</p>
-        <button class="btn primary"
-          onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSem_8RjWAryclLqgTaaTLqz1CYg6zCmtfl9N1UyDY1gfOoo5A/viewform?usp=sharing&ouid=109028943176097355718','_blank')">
-          فتح النموذج
-        </button>
-      </div>
-    </section>
-
   </main>
 
-  <!-- Terms Modal -->
   <div id="overlay" class="overlay hidden" aria-hidden="true"></div>
   <div id="terms-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-card">
-      <h3 style="margin:0 0 .5rem" data-i18n="terms.title">الشروط والسياسات</h3>
+      <h3 style="margin:0 0 .5rem">الشروط والسياسات</h3>
       <div style="max-height:42vh;overflow:auto">
-        <p data-i18n="terms.brief">مختصر: البطاقات شخصية وتُفعّل بعد الدفع. يمنع العبث.</p>
+        <p><b>مختصر:</b> البطاقات شخصية وتُفعل بعد الدفع. البطاقات المؤقتة ليست رسمية حتى استكمال الدفع. يمنع العبث بالأكواد.</p>
       </div>
       <label class="row" style="margin:.75rem 0">
-        <input type="checkbox" id="terms-check"><span style="margin-inline-start:.5rem" data-i18n="terms.agree">أوافق</span>
+        <input type="checkbox" id="terms-check"><span style="margin-inline-start:.5rem">أوافق على الشروط والسياسات</span>
       </label>
-      <button id="btn-accept-terms" class="btn primary" disabled data-i18n="terms.btn">موافق</button>
+      <button id="btn-accept-terms" class="primary" disabled>أوافق على الشروط والسياسات</button>
     </div>
   </div>
 
-  <footer class="container"><small class="muted">© 2025 — Public PWA</small></footer>
+  <footer class="container" style="padding-bottom:40px"><small class="muted">© 2025 — يعمل محليًا (PWA)</small></footer>
+
+  <!-- SheetJS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script>
+    // Admin hash (SHA-256) for key 'RDC-ADMIN-2025' — غيّر القيمة لاحقاً
+    window.d2edfa8b5ba4666e9070f57259b20a3f2b077d89ad7a98e3de374ac105b12f18 = "d2edfa8b5ba4666e9070f57259b20a3f2b077d89ad7a98e3de374ac105b12f18";
+  </script>
   <script type="module" src="app.js"></script>
 </body>
 </html>
