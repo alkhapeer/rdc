@@ -164,22 +164,15 @@
         src=""
         width="100%" height="720" frameborder="0" style="display:block"></iframe>
     </div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<script>
-  // ضع رابط الفورم هنا (نفس الرابط الذي جربت فتحه مباشرة)
-  const googleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSem_8RjWAryclLqgTaaTLqz1CYg6zCmtfl9N1UyDY1gfOoo5A/viewform?embedded=true"/viewform?embedded=true";
-
-  document.getElementById('open-form-inline').addEventListener('click', () => {
-    document.getElementById('gf-iframe').src = googleFormURL;
-    document.getElementById('form-modal').style.display = 'block';
-  });
-  document.getElementById('close-form-modal').addEventListener('click', () => {
-    document.getElementById('form-modal').style.display = 'none';
-    document.getElementById('gf-iframe').src = '';
-  });
-</script>
+    <div class="card">
+    <h3>تواصل معنا</h3>
+    <button class="btn primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSem_8RjWAryclLqgTaaTLqz1CYg6zCmtfl9N1UyDY1gfOoo5A/viewform', '_blank')">
+     فتح النموذج
+   </button>
+ </div>
 
   </main>
   
